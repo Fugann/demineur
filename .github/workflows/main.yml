@@ -1,0 +1,19 @@
+name: Deploy React App to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+    - name: Check SERVER_IP_ADDRESS presence
+      run: |
+        if [ -z "${{ secrets.SSH_PRIVATE_KEY  }}" ]; then
+          echo "Error: SSH_PRIVATE_KEY secret is empty"
+          exit 1
+        fi
+        
